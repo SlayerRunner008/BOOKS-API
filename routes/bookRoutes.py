@@ -33,14 +33,14 @@ class Book(BaseModel):
 
 router = APIRouter()
 
-@router.get("/books", tags=["Books"], dependencies=[Depends(JWTBearer())])
+@router.get("/books", tags=["Books"])
 def get_books():
     db = Session()
     result = db.query(BookModel).all()
     db.close()  
     return JSONResponse(content=jsonable_encoder(result), status_code=200)
 
-@router.get("/books/{id}", tags=["Books"], dependencies=[Depends(JWTBearer())])
+@router.get("/books/{id}", tags=["Books"])
 def get_book(id: int = Path(ge=1, le=2100)):
     db = Session()
     result = db.query(BookModel).filter(BookModel.code == id).first()
@@ -49,7 +49,7 @@ def get_book(id: int = Path(ge=1, le=2100)):
         return JSONResponse(status_code=404, content={"message": "No encontrado"})
     return JSONResponse(status_code=200, content=jsonable_encoder(result))
 
-@router.get("/book/", tags=["Books"], dependencies=[Depends(JWTBearer())])
+@router.get("/book/", tags=["Books"])
 def get_book_category(category: str = Query(min_length=3, max_length=20)):
     db = Session()
     result = db.query(BookModel).filter(BookModel.category == category).all()
@@ -58,7 +58,7 @@ def get_book_category(category: str = Query(min_length=3, max_length=20)):
         return JSONResponse(status_code=404, content={"message": "No encontrado"})
     return JSONResponse(status_code=200, content=jsonable_encoder(result))
 
-@router.post("/books", tags=["Books"], dependencies=[Depends(JWTBearer())])
+@router.post("/books", tags=["Books"])
 def create_book(book: Book):
     db = Session()
     newBook = BookModel(**book.model_dump())
@@ -67,7 +67,7 @@ def create_book(book: Book):
     return JSONResponse(status_code=201,content=jsonable_encoder(newBook))
 
 
-@router.patch("/books/{id}",tags=["Books"],dependencies=[Depends(JWTBearer())])
+@router.patch("/books/{id}",tags=["Books"])
 def update_book(id: int, book: Book):
     db= Session()
     result = db.query(BookModel).filter(BookModel.code == id).first()
@@ -82,7 +82,7 @@ def update_book(id: int, book: Book):
 
     return JSONResponse(status_code=200,content=jsonable_encoder(result))
 
-@router.delete("/books/{id}",tags=["Books"],dependencies=[Depends(JWTBearer())])
+@router.delete("/books/{id}",tags=["Books"])
 def delete_computer(id:int):
     db = Session()
     result = db.query(BookModel).filter(BookModel.code == id).first()
