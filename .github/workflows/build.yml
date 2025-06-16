@@ -1,0 +1,25 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install sshpass
+      run: sudo apt-get update && sudo apt-get install -y sshpass
+
+    - name: Deploy to server via SSH
+      run: |
+        sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no "$SERVER_USER@$SERVER_IP" "\
+          cd /root/BOOKS-API && \
+          git pull && \
+          pm2 restart BOOKS-API"
+      env:
+        SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+        SERVER_USER: ${{ secrets.SERVER_USER }}
+        SERVER_IP: ${{ secrets.SERVER_IP }}
