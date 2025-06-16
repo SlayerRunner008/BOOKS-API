@@ -43,7 +43,7 @@ def get_books():
 @router.get("/books/{id}", tags=["Books"], dependencies=[Depends(JWTBearer())])
 def get_book(id: int = Path(ge=1, le=2100)):
     db = Session()
-    result = db.query(BookModel).filter(BookModel.id == id).first()
+    result = db.query(BookModel).filter(BookModel.code == id).first()
     db.close()
     if not result:
         return JSONResponse(status_code=404, content={"message": "No encontrado"})
@@ -65,3 +65,31 @@ def create_book(book: Book):
     db.add(newBook)
     db.commit()
     return JSONResponse(status_code=201,content=jsonable_encoder(newBook))
+
+
+@router.patch("/books/{id}",tags=["Books"],dependencies=[Depends(JWTBearer())])
+def update_book(id: int, book: Book):
+    db= Session()
+    result = db.query(BookModel).filter(BookModel.code == id).first()
+    if not result: 
+        JSONResponse(status_code=404,content={"message":"no encontrado"})
+    result.title =  book.title
+    result.author = book.author
+    result.year = book.year
+    result.category = book.category
+    result.numOfPages = book.numOfPages
+    db.commit()
+
+    return JSONResponse(status_code=200,content=jsonable_encoder(result))
+
+@router.delete("/books/{id}",tags=["Books"],dependencies=[Depends(JWTBearer())])
+def delete_computer(id:int):
+    db = Session()
+    result = db.query(BookModel).filter(BookModel.code == id).first()
+    if not result: 
+        JSONResponse(status_code=404,content={"message":"no encontrado"})
+    db.delete(result)
+    db.commit()
+
+    return JSONResponse(content = {"message":"Libro eliminado correctamente"}, status_code=200)
+

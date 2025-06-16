@@ -9,4 +9,3 @@ Base.metadata.create_all(bind=engine)
 app.include_router(homeRoute.router)
 app.include_router(bookRoutes.router)
 app.include_router(authRoute.router)
-

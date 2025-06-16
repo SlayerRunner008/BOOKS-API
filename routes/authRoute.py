@@ -5,6 +5,8 @@ from utils.jwt_manager import create_token
 
 router = APIRouter()
 
+
+
 class User(BaseModel):
     email: str
     password: str
