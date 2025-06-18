@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DigiBooks</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <img src="img/icono.png" alt="DigiBooks icon" class="icon">
+    <span>DigiBooks</span>
+  </header>
+
+  <main>
+    <section class="form-section">
+      <h2>Agregar libro nuevo</h2>
+      <form id="book-form">
+        <input type="text" id="titulo" placeholder="Título del libro" required />
+        <input type="text" id="autor" placeholder="Autor" required />
+        <input type="number" id="anio" placeholder="Año" required />
+        <select id="categoria" required>
+          <option value="">Selecciona una categoría</option>
+        </select>
+        <input type="number" id="paginas" placeholder="Número de páginas" required />
+        <button type="submit">Guardar libro</button>
+      </form>
+    </section>
+
+
+    <section class="list-section">
+      <h2>Libros registrados</h2>
+      <select id="categoriaFiltro">
+        <option value="">Todas las categorías</option>
+      </select>
+      <button onclick="getBooks()">Cargar libros</button>
+      <div id="tituloCategoria" class="categoria-titulo"></div>
+      <div class="book-list" id="book-list"></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+    <span class="footer-text">&copy; 2025 DigiBooks - Biblioteca Digital</span>
+    <img src="img/logo.png" alt="DigiBooks Logo" class="logo-footer" />
+  </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
