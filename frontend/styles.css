@@ -198,6 +198,31 @@ footer {
   }
 }
 
+.search-id {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.search-id input {
+  padding: 0.4rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  flex: 1;
+  min-width: 150px;
+}
+
+.search-id button {
+  padding: 0.4rem 0.8rem;
+  border: none;
+  background-color: #4c68af;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 @media (max-width: 768px) {
   main {
     flex-direction: column;

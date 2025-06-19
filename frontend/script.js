@@ -156,5 +156,48 @@ async function saveEdit(e, id) {
   }
 }
 
+async function buscarPorId() {
+  const id = document.getElementById("busquedaId").value.trim();
+  const lista = document.getElementById("book-list");
+  const categoriaTitulo = document.getElementById("tituloCategoria");
+
+  if (!id || isNaN(id)) {
+    alert("🔎 Ingresa un ID válido");
+    return;
+  }
+
+  try {
+    const res = await fetch(`${API_URL}/${id}`);
+
+    if (!res.ok) throw new Error("Libro no encontrado");
+
+    const libro = await res.json();
+    lista.innerHTML = ""; // Limpia la lista
+    categoriaTitulo.innerHTML = `🔎 Resultado para ID <strong>${id}</strong>`;
+
+    const card = document.createElement("div");
+    card.className = "book-card";
+    card.innerHTML = `
+      <h3>${libro.title}</h3>
+      <p><strong>Autor:</strong> ${libro.author}</p>
+      <p><strong>Año:</strong> ${libro.year}</p>
+      <p><strong>Categoría:</strong> ${libro.category}</p>
+      <p><strong>Páginas:</strong> ${libro.numOfPages}</p>
+      <div class="card-actions">
+        <button onclick="editBook(this, ${libro.code}, '${libro.title}', '${libro.author}', ${libro.year}, '${libro.category}', ${libro.numOfPages})">✏️ Editar</button>
+        <button onclick="deleteBook(${libro.code})">🗑 Eliminar</button>
+      </div>
+    `;
+    lista.appendChild(card);
+  } catch (err) {
+    alert("❌ No se encontró ningún libro con ese ID");
+    categoriaTitulo.innerHTML = "";
+    lista.innerHTML = "";
+  }
+
+  document.getElementById("busquedaId").value = "";
+}
+
+
 // Finalmente para cargar automáticamente
 getBooks();
