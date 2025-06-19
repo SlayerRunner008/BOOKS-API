@@ -149,12 +149,14 @@ async function saveEdit(e, id) {
   });
 
   if (res.ok) {
-    alert("✅ Cambios guardados");
+    alert("Cambios guardados");
     getBooks();
   } else {
-    alert("❌ Error al guardar cambios");
+    alert("Error al guardar cambios");
   }
 }
+
+// Para buscar por ID
 
 async function buscarPorId() {
   const id = document.getElementById("busquedaId").value.trim();
@@ -162,7 +164,7 @@ async function buscarPorId() {
   const categoriaTitulo = document.getElementById("tituloCategoria");
 
   if (!id || isNaN(id)) {
-    alert("🔎 Ingresa un ID válido");
+    alert("Ingresa un ID válido");
     return;
   }
 
@@ -172,8 +174,8 @@ async function buscarPorId() {
     if (!res.ok) throw new Error("Libro no encontrado");
 
     const libro = await res.json();
-    lista.innerHTML = ""; // Limpia la lista
-    categoriaTitulo.innerHTML = `🔎 Resultado para ID <strong>${id}</strong>`;
+    lista.innerHTML = ""; 
+    categoriaTitulo.innerHTML = `Resultado para ID <strong>${id}</strong>`;
 
     const card = document.createElement("div");
     card.className = "book-card";
@@ -190,7 +192,7 @@ async function buscarPorId() {
     `;
     lista.appendChild(card);
   } catch (err) {
-    alert("❌ No se encontró ningún libro con ese ID");
+    alert("No se encontró ningún libro con ese ID");
     categoriaTitulo.innerHTML = "";
     lista.innerHTML = "";
   }
