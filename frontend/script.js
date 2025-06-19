@@ -194,10 +194,10 @@ async function buscarPorId() {
     categoriaTitulo.innerHTML = "";
     lista.innerHTML = "";
   }
-  document.getElementById("buscarIdBtn").addEventListener("click", buscarPorId);
+  
  
 }
-
+document.getElementById("buscarIdBtn").addEventListener("click", buscarPorId);
 
 // Finalmente para cargar automáticamente
 getBooks();
