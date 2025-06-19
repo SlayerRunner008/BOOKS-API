@@ -5,7 +5,7 @@ from routes import homeRoute, bookRoutes, authRoute
 from fastapi.staticfiles import StaticFiles
 import os
 
-app = FastAPI(title="Library API", version="0.0.1")
+app = FastAPI(title="Biblioteca", version="0.0.1")
 
 # CORS
 app.add_middleware(
