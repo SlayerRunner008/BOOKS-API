@@ -18,7 +18,8 @@ jobs:
         sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no "$SERVER_USER@$SERVER_IP" "\
           cd /root/BOOKS-API && \
           git pull origin main && \
-          pm2 restart BOOKS-API"
+          pm2 restart BOOKS-API
+          sudo systemctl restart nginx"
       env:
         SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
         SERVER_USER: ${{ secrets.SERVER_USER }}
