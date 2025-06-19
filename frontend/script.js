@@ -194,8 +194,8 @@ async function buscarPorId() {
     categoriaTitulo.innerHTML = "";
     lista.innerHTML = "";
   }
-
-  document.getElementById("busquedaId").value = "";
+  document.getElementById("buscarIdBtn").addEventListener("click", buscarPorId);
+ 
 }
 
 
