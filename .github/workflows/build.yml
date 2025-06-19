@@ -17,7 +17,7 @@ jobs:
       run: |
         sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no "$SERVER_USER@$SERVER_IP" "\
           cd /root/BOOKS-API && \
-          git pull && \
+          git pull origin main && \
           pm2 restart BOOKS-API"
       env:
         SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
